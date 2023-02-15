@@ -1,4 +1,6 @@
 use mbanking_project;
+show tables from mbanking_project;
+
 
 create table Users(
 	id int primary key not null auto_increment,
@@ -28,3 +30,5 @@ create table TopUp(
 	created_at datetime default current_timestamp,
 	constraint fk_data_user1 foreign key (user_id) references users(id)
 );
+
+select * from Users;
