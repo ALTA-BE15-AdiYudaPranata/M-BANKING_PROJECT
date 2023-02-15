@@ -32,7 +32,19 @@ func main() {
 
 	case 2:
 		// code here - LOGIN
+		logUser := entities.User{}
 
+		fmt.Println("Masukkan Telepon:")
+		fmt.Scanln(&logUser.Telepon)
+		fmt.Println("Masukkan Password:")
+		fmt.Scanln(&logUser.Password)
+		dataLogin, err := controllers.Login(db, logUser)
+		if err != nil {
+			fmt.Println("login gagal")
+		} else {
+			fmt.Println("login berhasil")
+		}
+		fmt.Println(dataLogin)
 	case 3:
 		// code here - READ ACCOUNT
 
