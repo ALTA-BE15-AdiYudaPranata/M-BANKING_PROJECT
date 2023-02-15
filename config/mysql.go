@@ -11,7 +11,7 @@ import (
 func ConnectToDB() *sql.DB {
 	// <username>:<password>@tcp(<hostname>:<port>)/<db_name>
 	var connectionString = os.Getenv("DB_CONNECTION")
-	log.Println("db", connectionString)
+	// log.Println("db", connectionString)
 	db, err := sql.Open("mysql", connectionString)
 	if err != nil {
 		log.Fatal("error open connection", err.Error())
