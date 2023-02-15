@@ -1,11 +1,9 @@
-create database mbanking_project;
-show databases;
 use mbanking_project;
 
 create table Users(
 	id int primary key not null auto_increment,
 	name varchar(50) not null,
-	phone varchar(13) not null,
+	phone varchar(13) unique not null,
 	password varchar(8) not null,
 	saldo int,
 	created_at datetime default current_timestamp,
