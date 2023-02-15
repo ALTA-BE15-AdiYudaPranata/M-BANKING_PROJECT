@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"mbanking_project/config"
+	"mbanking_project/controllers"
+	"mbanking_project/entities"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -19,6 +21,14 @@ func main() {
 	switch pilihan {
 	case 1:
 		// code here - REGISTER
+		newUser := entities.User{}
+		fmt.Println("Masukkan Nama:")
+		fmt.Scanln(&newUser.Nama)
+		fmt.Println("Masukkan Telepon:")
+		fmt.Scanln(&newUser.Telepon)
+		fmt.Println("Masukkan Password:")
+		fmt.Scanln(&newUser.Password)
+		controllers.Register(db, newUser)
 
 	case 2:
 		// code here - LOGIN
