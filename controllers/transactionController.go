@@ -20,7 +20,7 @@ func TopUp(db *sql.DB, id int, nominal int) (saldo int, status error) {
 		row, _ := result.RowsAffected()
 		if row > 0 {
 			fmt.Println("proses topup berhasil")
-			rss, err := db.Prepare("UPDATE Users SET saldo = ? WHERE id = ?")
+			rss, err := db.Prepare("UPDATE Users SET saldo = saldo + ? WHERE id = ?")
 			if err != nil {
 				log.Fatal("error query insert", err.Error())
 			}
