@@ -75,3 +75,25 @@ func UpdateUser(db *sql.DB, nama string, telepon string, password string, id int
 	}
 	return res, nil
 }
+
+func DeleteUser(db *sql.DB, delUser entities.User) (bool, error) {
+	deleteQry, errDelete := db.Prepare("DELETE FROM users WHERE phone = ? AND password = ?")
+	if errDelete != nil {
+		log.Fatal("error query select", errDelete.Error())
+	}
+
+	result, err := deleteQry.Exec(delUser.Telepon, delUser.Password)
+	if err != nil {
+		log.Fatal("error exec delete", err.Error())
+
+	} else {
+		row, _ := result.RowsAffected()
+		if row > 0 {
+			fmt.Println("akun telah dihapus dari sistem")
+		} else {
+			fmt.Println("proses gagal")
+		}
+	}
+	return true, nil
+
+}
