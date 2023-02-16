@@ -82,7 +82,16 @@ func main() {
 					}
 				case 4:
 					// code here - TOP-UP
-
+					var nominal int
+					fmt.Println("Masukkan Nominal:")
+					fmt.Scanln(&nominal)
+					saldo, err := controllers.TopUp(db, dataLogin.Id, nominal)
+					if err != nil {
+						fmt.Println("topup gagal")
+					} else {
+						fmt.Println("top up berhasil")
+					}
+					fmt.Println(saldo)
 				case 5:
 					// code here - TRANSFER
 
