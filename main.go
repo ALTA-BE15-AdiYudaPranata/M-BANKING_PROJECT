@@ -119,6 +119,10 @@ func main() {
 
 				case 7:
 					// code here - HISTORY TRANSFER
+					var idUser1 int
+					fmt.Println("Masukkan id anda : ")
+					fmt.Scanln(&idUser1)
+					controllers.HistoryTransfer(db, idUser1)
 
 				case 8:
 					// code here - READ OTHER USERS
