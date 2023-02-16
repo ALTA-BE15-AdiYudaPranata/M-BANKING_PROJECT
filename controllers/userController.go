@@ -97,3 +97,20 @@ func DeleteUser(db *sql.DB, delUser entities.User) (bool, error) {
 	return true, nil
 
 }
+
+func ReadData(db *sql.DB, telp string, pass string) {
+	rows, errSelect := db.Query("SELECT id, name, phone, saldo, created_at FROM Users WHERE phone = ? AND password = ?", telp, pass)
+	if errSelect != nil {
+		log.Fatal("error query select", errSelect.Error())
+	}
+
+	for rows.Next() {
+		var datarow entities.User
+		errScan := rows.Scan(&datarow.Id, &datarow.Nama, &datarow.Telepon, &datarow.Saldo, &datarow.Created)
+		if errScan != nil {
+			log.Fatal("error scan select", errScan.Error())
+		}
+		fmt.Println("Id:", datarow.Id, "Nama:", datarow.Nama, "Telepon:", datarow.Telepon, "Saldo:", datarow.Saldo, "Tgl Pembuatan Akun:", datarow.Created)
+	}
+
+}

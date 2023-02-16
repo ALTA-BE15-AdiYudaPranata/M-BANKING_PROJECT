@@ -55,6 +55,12 @@ func main() {
 				switch loginMenu {
 				case 1:
 					// code here - READ ACCOUNT
+					var telp, pass string
+					fmt.Println("Masukkan Telepon:")
+					fmt.Scanln(&telp)
+					fmt.Println("Masukkan Password:")
+					fmt.Scanln(&pass)
+					controllers.ReadData(db, telp, pass)
 
 				case 2:
 					// code here - UPDATE ACCOUNT
