@@ -112,6 +112,10 @@ func main() {
 
 				case 6:
 					// code here - HISTORY TOP-UP
+					var idUser int
+					fmt.Println("Masukkan id anda : ")
+					fmt.Scanln(&idUser)
+					controllers.HistoryTopup(db, idUser)
 
 				case 7:
 					// code here - HISTORY TRANSFER

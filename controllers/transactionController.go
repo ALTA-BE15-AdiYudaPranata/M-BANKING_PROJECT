@@ -125,3 +125,23 @@ func Transfer(db *sql.DB, idUser int, phoneOther string, nominal int) (bool, err
 	}
 	return true, nil
 }
+
+func HistoryTopup(db *sql.DB, idUser int) {
+	rows, errSelect := db.Query("SELECT value, created_at FROM TopUp WHERE user_id = ?", idUser)
+	if errSelect != nil {
+		log.Fatal("error query select", errSelect.Error())
+	}
+
+	var allHistory []entities.TopUp
+	for rows.Next() {
+		var datarow entities.TopUp
+		errScan := rows.Scan(&datarow.Value, &datarow.Created)
+		if errScan != nil {
+			log.Fatal("error scan select", errScan.Error())
+
+		}
+		allHistory = append(allHistory, datarow)
+		fmt.Println("Nominal:", datarow.Value, "Tgl TopUp:", datarow.Created)
+	}
+
+}
