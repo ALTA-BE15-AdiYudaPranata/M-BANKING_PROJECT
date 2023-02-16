@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"mbanking_project/entities"
 )
 
 func TopUp(db *sql.DB, id int, nominal int) (saldo int, status error) {
@@ -45,4 +46,82 @@ func TopUp(db *sql.DB, id int, nominal int) (saldo int, status error) {
 		return saldo, err
 	}
 	return saldo, nil
+}
+
+func Transfer(db *sql.DB, idUser int, phoneOther string, nominal int) (bool, error) {
+	// proses untuk mendapatkan nomer telepon
+	querySaldo2, errSaldo2 := db.Prepare("SELECT id FROM users WHERE phone = ?")
+	if errSaldo2 != nil {
+		log.Fatal("error query select", errSaldo2.Error())
+	}
+
+	row2 := querySaldo2.QueryRow(phoneOther)
+
+	if row2.Err() != nil {
+		log.Println("select query ", row2.Err().Error())
+	}
+	res2 := entities.User{}
+	err2 := row2.Scan(&res2.Id)
+
+	if err2 != nil {
+		log.Println("after select query ", err2.Error())
+		return false, err2
+	}
+
+	// proses transfer
+
+	transferQry, errTransfer := db.Prepare("INSERT INTO Transfer (user_id_pengirim, user_id_penerima, value) VALUES (?,?,?)")
+	if errTransfer != nil {
+		log.Fatal("error query insert", errTransfer.Error())
+	}
+
+	result, err := transferQry.Exec(idUser, res2.Id, nominal)
+	if err != nil {
+		log.Fatal("error exec insert", err.Error())
+	} else {
+		row, _ := result.RowsAffected()
+		if row > 0 {
+			fmt.Println("proses transfer berhasil")
+		} else {
+			fmt.Println("proses gagal")
+		}
+	}
+
+	// update saldo pengirim
+	querySaldo11, errSaldo11 := db.Prepare("UPDATE Users set saldo = saldo - ? where id = ? ")
+	if errSaldo11 != nil {
+		log.Fatal("error query update", errSaldo11.Error())
+	}
+
+	statement, err := querySaldo11.Exec(nominal, idUser)
+	if err != nil {
+		log.Fatal("error exec update", err.Error())
+	} else {
+		row, _ := statement.RowsAffected()
+		if row > 0 {
+			fmt.Println("")
+		} else {
+			fmt.Println("proses gagal")
+		}
+	}
+
+	// update saldo penerima
+	querySaldo21, errSaldo21 := db.Prepare("UPDATE Users set saldo = saldo + ? where id = ? ")
+	if errSaldo21 != nil {
+		log.Fatal("error query update", errSaldo21.Error())
+	}
+
+	statement1, err := querySaldo21.Exec(nominal, res2.Id)
+	if err != nil {
+		log.Fatal("error exec update", err.Error())
+	} else {
+		row, _ := statement1.RowsAffected()
+		if row > 0 {
+			fmt.Println("")
+		} else {
+			fmt.Println("proses gagal")
+		}
+		return false, err
+	}
+	return true, nil
 }

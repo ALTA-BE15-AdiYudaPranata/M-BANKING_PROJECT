@@ -99,6 +99,16 @@ func main() {
 					}
 				case 5:
 					// code here - TRANSFER
+					var nominal int
+					var othertelp string
+					fmt.Println("Masukkan Nomor Telepon Tujuan:")
+					fmt.Scanln(&othertelp)
+					fmt.Println("Masukkan Nominal:")
+					fmt.Scanln(&nominal)
+					_, err := controllers.Transfer(db, dataLogin.Id, othertelp, nominal)
+					if err != nil {
+						fmt.Println("topup gagal")
+					}
 
 				case 6:
 					// code here - HISTORY TOP-UP
