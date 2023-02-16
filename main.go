@@ -89,9 +89,8 @@ func main() {
 					if err != nil {
 						fmt.Println("topup gagal")
 					} else {
-						fmt.Println("top up berhasil")
+						fmt.Println("saldo bertambah sebesar : ", saldo)
 					}
-					fmt.Println(saldo)
 				case 5:
 					// code here - TRANSFER
 
