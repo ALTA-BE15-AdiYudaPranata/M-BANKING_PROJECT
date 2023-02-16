@@ -6,4 +6,7 @@ type User struct {
 	Telepon  string
 	Password string
 	Saldo    int
+	Created  string
+	Updated  string
+	Deleted  string
 }

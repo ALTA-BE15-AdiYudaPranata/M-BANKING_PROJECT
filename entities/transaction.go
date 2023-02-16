@@ -1,14 +1,16 @@
 package entities
 
-type TopUp struct {
+type Transfer struct {
 	Id      int
 	IdUser  int
 	IdOther int
 	Value   int
+	Created string
 }
 
-type Transfer struct {
-	Id     int
-	IdUser int
-	Value  int
+type TopUp struct {
+	Id      int
+	IdUser  int
+	Value   int
+	Created string
 }
