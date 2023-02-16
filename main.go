@@ -58,7 +58,17 @@ func main() {
 
 				case 2:
 					// code here - UPDATE ACCOUNT
-
+					var nama, telepon, password string
+					fmt.Println("Masukkan Nama:")
+					fmt.Scanln(&nama)
+					fmt.Println("Masukkan Telepon:")
+					fmt.Scanln(&telepon)
+					fmt.Println("Masukkan Password:")
+					fmt.Scanln(&password)
+					_, err := controllers.UpdateUser(db, nama, telepon, password, dataLogin.Id)
+					if err != nil {
+						fmt.Println("login gagal")
+					}
 				case 3:
 					// code here - DELETE ACCOUNT
 
@@ -82,35 +92,5 @@ func main() {
 
 		}
 	}
-
+	fmt.Println("----- Terimakasih telah bertransaksi -----")
 }
-
-// 		case 3:
-// 			// code here - READ ACCOUNT
-
-// 		case 4:
-// 			// code here - UPDATE ACCOUNT
-
-// 		case 5:
-// 			// code here - DELETE ACCOUNT
-
-// 		case 6:
-// 			// code here - TOP-UP
-
-// 		case 7:
-// 			// code here - TRANSFER
-
-// 		case 8:
-// 			// code here - HISTORY TOP-UP
-
-// 		case 9:
-// 			// code here - HISTORY TRANSFER
-
-// 		case 10:
-// 			// code here - OTHER USER
-
-// 		case 0:
-// 			// code here - EXIT
-// 		}
-// 	}
-// }
