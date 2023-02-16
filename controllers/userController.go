@@ -114,3 +114,21 @@ func ReadData(db *sql.DB, telp string, pass string) {
 	}
 
 }
+func ReadOther(db *sql.DB) {
+	rows, errSelect := db.Query("SELECT id, name, phone FROM Users")
+	if errSelect != nil {
+		log.Fatal("error query select", errSelect.Error())
+	}
+
+	var allUser []entities.User
+	for rows.Next() {
+		var datarow entities.User
+		errScan := rows.Scan(&datarow.Id, &datarow.Nama, &datarow.Telepon)
+		if errScan != nil {
+			log.Fatal("error scan select", errScan.Error())
+		}
+		allUser = append(allUser, datarow)
+		fmt.Println("Id:", datarow.Id, "Nama:", datarow.Nama, "Telepon:", datarow.Telepon)
+	}
+
+}
