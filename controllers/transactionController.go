@@ -145,3 +145,22 @@ func HistoryTopup(db *sql.DB, idUser int) {
 	}
 
 }
+
+func HistoryTransfer(db *sql.DB, idUser1 int) {
+	rows, errSelect := db.Query("SELECT user_id_penerima, value, created_at FROM Transfer WHERE user_id_pengirim = ?", idUser1)
+	if errSelect != nil {
+		log.Fatal("error query select", errSelect.Error())
+	}
+
+	var allHistory []entities.Transfer
+	for rows.Next() {
+		var datarow entities.Transfer
+		errScan := rows.Scan(&datarow.IdOther, &datarow.Value, &datarow.Created)
+		if errScan != nil {
+			log.Fatal("error scan select", errScan.Error())
+
+		}
+		allHistory = append(allHistory, datarow)
+		fmt.Println("Id Penerima:", datarow.IdOther, "Nominal:", datarow.Value, "Tgl Transfer:", datarow.Created)
+	}
+}
