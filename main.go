@@ -126,7 +126,7 @@ func main() {
 
 				case 8:
 					// code here - READ OTHER USERS
-
+					controllers.ReadOther(db)
 				}
 			}
 
