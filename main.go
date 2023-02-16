@@ -71,7 +71,15 @@ func main() {
 					}
 				case 3:
 					// code here - DELETE ACCOUNT
-
+					delUser := entities.User{}
+					fmt.Println("Masukkan Telepon:")
+					fmt.Scanln(&delUser.Telepon)
+					fmt.Println("Masukkan Password:")
+					fmt.Scanln(&delUser.Password)
+					_, err := controllers.DeleteUser(db, delUser)
+					if err != nil {
+						fmt.Println("delete gagal")
+					}
 				case 4:
 					// code here - TOP-UP
 
