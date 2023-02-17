@@ -48,7 +48,6 @@ func main() {
 				fmt.Println("login berhasil")
 				fmt.Println("===============================")
 				fmt.Println("----- Menu User -----")
-				fmt.Println("Pilih Menu : ")
 				fmt.Println("Pilih Menu:\n1. Read Account\n2. Update Account\n3. Delete Account\n4. Top-Up\n5. Transfer\n6. History Top-Up\n7. History Transfer\n8. Read Other Users\n0. Exit")
 				fmt.Println("Masukkan pilihan anda : ")
 				fmt.Scanln(&loginMenu)
@@ -91,11 +90,11 @@ func main() {
 					var nominal int
 					fmt.Println("Masukkan Nominal:")
 					fmt.Scanln(&nominal)
-					saldo, err := controllers.TopUp(db, dataLogin.Id, nominal)
+					_, err := controllers.TopUp(db, dataLogin.Id, nominal)
 					if err != nil {
 						fmt.Println("topup gagal")
-					} else {
-						fmt.Println("saldo bertambah sebesar : ", saldo)
+						// } else {
+						// 	fmt.Println("saldo bertambah sebesar : ", saldo)
 					}
 				case 5:
 					// code here - TRANSFER
@@ -107,7 +106,7 @@ func main() {
 					fmt.Scanln(&nominal)
 					_, err := controllers.Transfer(db, dataLogin.Id, othertelp, nominal)
 					if err != nil {
-						fmt.Println("topup gagal")
+						fmt.Println("transfer gagal")
 					}
 
 				case 6:
@@ -134,3 +133,7 @@ func main() {
 	}
 	fmt.Println("----- Terimakasih telah bertransaksi -----")
 }
+
+// in := bufio.NewReader(os.Stdin)
+// newUser.Nama, _ = in.ReadString('\n')
+// 			newUser.Nama = newUser.Nama[:len(newUser.Nama)-5]
